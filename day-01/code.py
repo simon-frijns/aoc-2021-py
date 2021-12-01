@@ -7,7 +7,7 @@ def get_input(filename: str) -> list:
 def part1(measurements:list) -> int:
     ans = 0
     measurements_to_compare = [*zip(measurements, measurements[1:])]
-    ans = sum([x < y for x, y in measurements_to_compare]) # sums booleans, mb bit ugly
+    ans = [x < y for x, y in measurements_to_compare].count(True) # sums booleans, mb bit ugly
     return ans
 
 def part2(measurements: list) -> int:
