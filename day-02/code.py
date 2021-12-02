@@ -22,7 +22,6 @@ def parse_commands(commands:list) -> Tuple[int, int, int]:
                 aim -= amount
     return horizontal_position, aim, depth
 
-
 def part1(commands:list) -> int:
     ans = 0
     # NB: abusing aim == depth between parts 1 and 2 to use parse_commands for both
