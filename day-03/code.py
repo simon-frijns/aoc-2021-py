@@ -17,7 +17,7 @@ def part1(report:list) -> int:
     ans = int(gamma, 2) * int(epsilon, 2)
     return ans
 
-def find_rating(report: list, column: int, gas: str) -> list or int:
+def find_rating(report: list, gas: str, column: int = 0) -> list or int:
     if len(report) == 1:
         return int(report[0], 2)
     pivoted_report = [list(i) for i in zip(*report)]
@@ -29,12 +29,12 @@ def find_rating(report: list, column: int, gas: str) -> list or int:
             digit = '1' if row.count('1') >= row.count('0') else '0'
     report = [row for row in report if row[column] == digit]
     column += 1
-    return find_rating(report, column, gas)
+    return find_rating(report, gas, column)
 
 def part2(report: list) -> int:
     ans = 0
-    oxygen = find_rating(report, 0, 'oxygen')
-    co2 = find_rating(report, 0, 'co2')
+    oxygen = find_rating(report, 'oxygen')
+    co2 = find_rating(report, 'co2')
     ans = oxygen * co2
     return ans
     
