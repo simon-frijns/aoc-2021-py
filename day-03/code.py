@@ -17,7 +17,7 @@ def part1(report:list) -> int:
     ans = int(gamma, 2) * int(epsilon, 2)
     return ans
 
-def find_rating(report: list, gas: str, column: int = 0) -> list or int:
+def find_rating(report: list, gas: str, column: int = 0) -> int:
     if len(report) == 1:
         return int(report[0], 2)
     pivoted_report = [list(i) for i in zip(*report)]
