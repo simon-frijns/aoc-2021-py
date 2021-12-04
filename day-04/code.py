@@ -45,24 +45,7 @@ def compute_result(number: int, board:list, board_status: list) -> int:
     result *= number
     return result
 
-def part1(input:list) -> int:
-    ans = 0
-    numbers, boards = parse_input(input)
-    board_status = []
-    winning_board = None
-    for _ in boards:
-        board_status.append([[0 for _ in range(len(boards[0][0]))] for _ in range(len(boards[0]))])
-    for number in numbers:
-        board_status = play_round(number, boards, board_status)
-        for i, _ in enumerate(board_status):
-            winning_board = check_winner(board_status[i])
-            if winning_board:  
-                ans = compute_result(number, boards[i], board_status[i]) 
-                return ans
-    return ans
-
-def part2(input: list) -> int:
-    ans = 0
+def play_bingo(input:list) -> dict:
     numbers, boards = parse_input(input)
     board_status = []
     winning_boards = {}
@@ -70,13 +53,23 @@ def part2(input: list) -> int:
         board_status.append([[0 for _ in range(len(boards[0][0]))] for _ in range(len(boards[0]))])
     for number in numbers:
         board_status = play_round(number, boards, board_status)
-        # check win for each board
         for i, _ in enumerate(board_status):
             if i in winning_boards:
                 continue
             winning_board = check_winner(board_status[i])
-            if winning_board:
+            if winning_board:  
                 winning_boards[i] = compute_result(number, boards[i], board_status[i])
+    return winning_boards
+
+def part1(input:list) -> int:
+    ans = 0
+    winning_boards = play_bingo(input)
+    ans = list(winning_boards.values())[0]
+    return ans
+
+def part2(input: list) -> int:
+    ans = 0
+    winning_boards = play_bingo(input)
     ans = list(winning_boards.values())[-1]
     return ans
     
