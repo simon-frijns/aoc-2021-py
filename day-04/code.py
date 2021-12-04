@@ -14,8 +14,7 @@ def parse_input(input: list) -> Tuple[list, list]:
         board = []
         board_rows = line.split('\n')
         for board_row in board_rows:
-            board_nums = re.findall('\d+', board_row)
-            board_nums = list(map(int, board_nums)) 
+            board_nums = list(map(int, re.findall('\d+', board_row)))
             board.append(board_nums)
         boards.append(board)
     return numbers, boards
@@ -32,7 +31,7 @@ def check_winner(board_status: list) -> bool:
     winning_board = False
     sum_rows = [sum(row) for row in board_status]
     sum_cols = [sum(col) for col in zip(*board_status)]
-    if 5 in sum_rows or 5 in sum_cols:    
+    if 5 in sum_rows + sum_cols: # not a fan but it works
         winning_board = True
     return winning_board
 
@@ -50,11 +49,11 @@ def play_bingo(input:list) -> dict:
     board_status = []
     winning_boards = {}
     for _ in boards:
-        board_status.append([[0 for _ in range(len(boards[0][0]))] for _ in range(len(boards[0]))])
+        board_status.append([[0 for _ in range(len(boards[0][0]))] for _ in range(len(boards[0]))])  # Creates a 5x5 of 0s
     for number in numbers:
         board_status = play_round(number, boards, board_status)
         for i, _ in enumerate(board_status):
-            if i in winning_boards:
+            if i in winning_boards: # only compute result when the win happens
                 continue
             winning_board = check_winner(board_status[i])
             if winning_board:  
