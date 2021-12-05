@@ -4,22 +4,18 @@ def get_input(filename: str) -> list:
     with open(filename) as input:
         input = input.read().strip().split("\n")
         return input
-
-def parse_input(input: list) -> list:
-    instructions = []
-    for line in input:
-        instructions.append(list(map(int, re.findall('\d+', line))))
-    return instructions
     
 def create_grid(input: list) -> list:
     c = [col for col in zip(*input)]
-    max_x = max(c[0]+c[2])
+    max_x = max(c[0]+c[2]) 
     max_y = max(c[1]+c[3])
-    grid = [[0 for _ in range(max_x+1)] for _ in range(max_y+1)]
+    grid = [[0 for _ in range(max_x+1)] for _ in range(max_y+1)] # not too happy about the +1'ing
     return grid
 
 def play_game(input: list, with_diagonals: bool) -> int:
-    instructions = parse_input(input)
+    instructions = []
+    for line in input:
+        instructions.append(list(map(int, re.findall('\d+', line))))
     grid = create_grid(instructions)
     for instruction in instructions:
         x1, y1, x2, y2 = [value for value in instruction]
@@ -38,7 +34,6 @@ def part1(input: list) -> int:
     return ans
 
 def part2(input: list) -> int:
-    ans = 0
     ans = play_game(input, with_diagonals = True)
     return ans
     
