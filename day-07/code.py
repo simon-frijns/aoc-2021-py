@@ -15,7 +15,7 @@ def part1(input: list) -> int:
     return min(ans_list)
 
 def part2(input: list) -> int:
-    possible_answers = range(max(input))
+    possible_answers = range(max(input)) # dirty, no way max is a possible answer
     ans_list = []
     for answer in possible_answers:
         ans_list.append(sum([cost(abs(pos - answer)) for pos in input]))
