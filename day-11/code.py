@@ -1,13 +1,13 @@
+to_check = []
+for i in range(-1, 2):
+    for j in range(-1, 2):
+        to_check.append([i, j])
+
 def get_input(filename: str) -> list:
     with open(filename) as input:
         input = input.read().strip().split("\n")
         input = [[int(c) for c in line] for line in input]
         return input
-
-to_check = []
-for i in range(-1, 2):
-    for j in range(-1, 2):
-        to_check.append([i, j])
                    
 def play_game(octopi: list, length_rows: int, length_cols: int, steps: int):
     flashes = 0
