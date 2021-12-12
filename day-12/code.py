@@ -13,8 +13,9 @@ def go_through(point: str, already_visited: set, connected_points: dict) -> int:
         return 1
     if point.islower() and point in already_visited:
         return 0
-    already_visited = deepcopy(already_visited)
-    already_visited.add(point)
+    if point.islower():
+        already_visited = deepcopy(already_visited)
+        already_visited.add(point)
     num_paths = 0
     for point in connected_points[point]:
         num_paths += go_through(point, already_visited, connected_points)
@@ -30,8 +31,9 @@ def go_through_p2(point: str, already_visited: set, connected_points: dict, twic
             return 0
         else:
             twice_cave = point
-    already_visited = deepcopy(already_visited)
-    already_visited.add(point)
+    if point.islower():
+        already_visited = deepcopy(already_visited)
+        already_visited.add(point)
     num_paths = 0
     for point in connected_points[point]:
         num_paths += go_through_p2(point, already_visited, connected_points, twice_cave)
