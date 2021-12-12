@@ -6,7 +6,7 @@ def get_input(filename: str) -> list:
         input = input.read().strip().split("\n")
         return input
 
-def go_through(point: str, already_visited: set, connected_points: dict) -> int:
+def go_through(point: str, already_visited: list, connected_points: dict) -> int:
     if point == 'start' and already_visited: 
         return 0
     if point == 'end': 
@@ -15,13 +15,13 @@ def go_through(point: str, already_visited: set, connected_points: dict) -> int:
         return 0
     if point.islower():
         already_visited = deepcopy(already_visited)
-        already_visited.add(point)
+        already_visited.append(point)
     num_paths = 0
     for point in connected_points[point]:
         num_paths += go_through(point, already_visited, connected_points)
     return num_paths
 
-def go_through_p2(point: str, already_visited: set, connected_points: dict, twice_cave: str) -> int:
+def go_through_p2(point: str, already_visited: list, connected_points: dict, twice_cave: str) -> int:
     if point == 'start' and already_visited: 
         return 0
     if point == 'end':
@@ -33,7 +33,7 @@ def go_through_p2(point: str, already_visited: set, connected_points: dict, twic
             twice_cave = point
     if point.islower():
         already_visited = deepcopy(already_visited)
-        already_visited.add(point)
+        already_visited.append(point)
     num_paths = 0
     for point in connected_points[point]:
         num_paths += go_through_p2(point, already_visited, connected_points, twice_cave)
@@ -45,7 +45,8 @@ def part1(input: list) -> int:
         a,b = i.strip().split('-')
         connected_points[a].append(b) 
         connected_points[b].append(a)
-    already_visited = set()
+    already_visited = list()
+    already_visited
     ans = go_through('start', already_visited, connected_points) 
     return ans
 
@@ -55,7 +56,7 @@ def part2(input: list) -> int:
         a,b = i.strip().split('-')
         connected_points[a].append(b) 
         connected_points[b].append(a)
-    already_visited = set()
+    already_visited = list()
     twice_cave = None
     ans = go_through_p2('start', already_visited, connected_points, twice_cave) 
     return ans
