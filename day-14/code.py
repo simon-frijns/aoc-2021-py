@@ -20,7 +20,7 @@ def parse_input(input: list) -> Tuple[list, dict]:
 def apply_rules(polymer_counts: defaultdict, insertion_rules: dict) -> defaultdict:
     new_counts = defaultdict(int)
     for pair, count in polymer_counts.items():
-        rule = insertion_rules[pair]
+        rule = insertion_rules[pair] # insert creates two new or existing pairs
         new_counts[pair[0] + rule] += count
         new_counts[rule + pair[1]] += count
     return new_counts
@@ -28,7 +28,7 @@ def apply_rules(polymer_counts: defaultdict, insertion_rules: dict) -> defaultdi
 def play_game(input: list, steps: int) -> int:
     polymer_counts, insertion_rules = parse_input(input)
     letter_count = defaultdict(int)  
-    letter_count[input[0][-1]] += 1 # as last letter of original string is not part of any pairs, it's not included in final count
+    letter_count[input[0][-1]] += 1 # as last letter of original string is not part of any pairs, need to manually add it to count
     for _ in range(steps):
         polymer_counts = apply_rules(polymer_counts, insertion_rules)
     for pair, count in polymer_counts.items():
