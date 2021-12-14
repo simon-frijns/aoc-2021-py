@@ -9,7 +9,7 @@ def get_input(filename: str) -> list:
 def parse_input(input: list) -> Tuple[list, dict]:
     polymer = input[0]
     polymer_counts = defaultdict(int)
-    for i in range(len(polymer)-1):
+    for i in range(len(polymer)-1): # create dict of counts for each pair in polymer
         polymer_counts[polymer[i]+polymer[i+1]] += 1
     insertion_rules = {}
     for row in input[2:]:
